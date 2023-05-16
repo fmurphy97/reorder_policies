@@ -8,7 +8,7 @@ For each simulation you can get an inventory time plot showing how many lost sal
 
 In order to create a model for a product you must input the following data:
 * **Yearly Demand**: mean and deviation
-* **vendor lead time**: mean and deviation. How long do products take to arrive since you order them
+* **Vendor Lead Time**: mean and deviation. How long do products take to arrive since you order them
 * **Costs**: holding, transaction (fixed and variable), stock out
 * **Minimum Order Size**
 * **Review Periods**: how often will you review stock
