@@ -64,8 +64,8 @@ class InventorySimulator:
 
         # Calculate S, target inventory level [unit]
         self.target_inventory_level = self.daily_demand_mean \
-                                      * (review_period + self.vendor_lead_time_mean) \
-                                      + self.security_stock
+            * (review_period + self.vendor_lead_time_mean) \
+            + self.security_stock
 
         self.num_by_col = {'Inventory': 0, 'Demand': 1, 'Sales': 2,
                            'Lost Sales': 3, 'Order Arrivals': 4, 'Order Requests': 5}
@@ -126,8 +126,7 @@ class InventorySimulator:
             # If today is multiple of review period, check stock, and reorder
             if self.days_since_last_review == self.current_review_period:
                 required_inventory = max(0, self.target_inventory_level - inventory)
-                forecasted_sales_lt = self.daily_demand_mean * self.vendor_lead_time_mean
-                order_size = required_inventory + forecasted_sales_lt
+                order_size = required_inventory
 
                 # Re-adjust order based on min order size
                 amount_to_order = (order_size // self.min_order_size + 1) * self.min_order_size
@@ -181,12 +180,12 @@ class InventorySimulator:
         :return: fill rate, TSL, daily stockout
         """
         fill_rate = self.simulation_data[self.num_by_col['Sales']].sum() \
-                    / self.simulation_data[self.num_by_col['Demand']].sum()
+            / self.simulation_data[self.num_by_col['Demand']].sum()
 
         total_service_level = self.calculate_total_service_level()
 
         daily_stock_out = np.count_nonzero(self.simulation_data[self.num_by_col['Inventory']]) \
-                          / len((self.simulation_data[self.num_by_col['Inventory']]))
+            / len((self.simulation_data[self.num_by_col['Inventory']]))
 
         return fill_rate, total_service_level, daily_stock_out
 
